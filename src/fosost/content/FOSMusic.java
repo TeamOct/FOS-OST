@@ -10,14 +10,14 @@ public class FOSMusic {
     /* bosses */ livingSteam, uncountable;
 
     public static void load() {
-        abandoned = loadMusic("abandoned");
-        scavenger = loadMusic("scavenger");
-        slowdown = loadMusic("slowdown");
+        abandoned = loadMusic("abadoned_");
+        scavenger = loadMusic("Scavenger");
+        slowdown = loadMusic("SlowDown");
 
         dive = loadMusic("dive");
 
-        livingSteam = loadMusic("living-steam");
-        uncountable = loadMusic("uncountable");
+        livingSteam = loadMusic("LivingSteam");
+        uncountable = loadMusic("Uncountable");
     }
 
     static Music loadMusic(String name) {
