@@ -5,19 +5,21 @@ import mindustry.Vars;
 
 public class FOSMusic {
     public static Music
-    /* Lumoni */ abandoned, scavenger, slowdown,
+    /* Lumoni */ abandoned, slowdown, local, source,
     /* Uxerd */ dive,
-    /* bosses */ livingSteam, uncountable;
+    /* bosses */ livingSteam, uncountable, scavenger;
 
     public static void load() {
         abandoned = loadMusic("abadoned_");
-        scavenger = loadMusic("Scavenger");
         slowdown = loadMusic("SlowDown");
+        local = loadMusic("local");
+        source = loadMusic("source");
 
         dive = loadMusic("dive");
 
         livingSteam = loadMusic("LivingSteam");
         uncountable = loadMusic("Uncountable");
+        scavenger = loadMusic("Scavenger");
     }
 
     static Music loadMusic(String name) {

@@ -17,14 +17,15 @@ import static fosost.content.FOSMusic.*;
 import static mindustry.Vars.*;
 
 public class FOSOSTMod extends Mod {
-    public Seq<Music> uxerdAmbient = new Seq<>();
-    public Seq<Music> lumoniAmbient = new Seq<>();
+    private Seq<Music> uxerdAmbient = new Seq<>();
+    private Seq<Music> lumoniAmbient = new Seq<>(), lumoniSurvival = new Seq<>();
+    private Seq<Music> lumoniBosses = new Seq<>();
 
     public Seq<Music> vAmbient, vDark, vBoss;
 
-    protected Planet curPlanet;
+    private Planet curPlanet;
 
-    protected SoundControl control = Vars.control.sound;
+    private SoundControl control = Vars.control.sound;
 
     //mod planets
     private Planet lumoni, uxerd;
@@ -57,11 +58,20 @@ public class FOSOSTMod extends Mod {
                 control.ambientMusic = control.darkMusic = uxerdAmbient;
             } else if (curPlanet == lumoni) {
                 control.ambientMusic = control.darkMusic = lumoniAmbient;
+                if (!state.rules.attackMode) {
+                    control.ambientMusic.addAll(lumoniSurvival);
+                    control.darkMusic.addAll(lumoniSurvival);
+                }
             }
         });
         Events.on(WaveEvent.class, e -> {
             SpawnGroup boss = state.rules.spawns.find(group -> group.getSpawned(state.wave - 2) > 0 && group.effect == StatusEffects.boss);
             if (boss == null) return;
+
+            if (curPlanet != null && curPlanet == lumoni) {
+                control.bossMusic = lumoniBosses;
+                return;
+            }
 
             if (boss.type == citadel) {
                 control.bossMusic = Seq.with(livingSteam);
@@ -83,7 +93,9 @@ public class FOSOSTMod extends Mod {
 
     void reload() {
         uxerdAmbient = Seq.with(dive);
-        lumoniAmbient = Seq.with(abandoned, scavenger, slowdown);
+        lumoniAmbient = Seq.with(abandoned, slowdown);
+        lumoniSurvival = Seq.with(local, source);
+        lumoniBosses = Seq.with(scavenger);
 
         vAmbient = control.ambientMusic;
         vDark = control.darkMusic;
