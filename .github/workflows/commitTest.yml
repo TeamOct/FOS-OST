@@ -27,12 +27,15 @@ jobs:
       run: |
         echo "::set-output name=tag::$(date +%Y%m%d%H%M%S)"
       id: tag_make
+
     - name: Create blank release
       if: github.ref == 'refs/heads/master'
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run:
         hub release create -m "FOS OST" "${{ steps.tag_make.outputs.tag }}"
+
+
     - name: Add jar into release
       uses: softprops/action-gh-release@v1
       if: github.ref == 'refs/heads/master'
