@@ -38,4 +38,4 @@ jobs:
       if: github.ref == 'refs/heads/master'
       with:
         tag_name: ${{ steps.tag_make.outputs.tag }}
-        files: main/build/libs/FOS-OST.jar
+        files: build/libs/${{ github.event.repository.name }}.jar
