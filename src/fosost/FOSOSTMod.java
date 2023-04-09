@@ -24,7 +24,6 @@ public class FOSOSTMod extends Mod {
     public Seq<Music> vAmbient, vDark, vBoss;
 
     private Planet curPlanet;
-
     private SoundControl control = Vars.control.sound;
 
     //mod planets
