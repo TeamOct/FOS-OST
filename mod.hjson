@@ -7,4 +7,6 @@ description: "Original soundtrack (made by Saigo no-nozomi) for a Mindustry mod 
 version: "1.0"
 minGameVersion: 140.3
 java: true
+hidden: true
+hideBrowser: true
 dependencies: [ fos ]
