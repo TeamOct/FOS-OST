@@ -46,7 +46,7 @@ public class FOSOSTMod extends Mod {
             return;
         }
 
-        Events.on(ClientLoadEvent.class, e -> reload());
+        Events.on(MusicRegisterEvent.class, e -> reload());
         //change the music to modded OST
         Events.on(WorldLoadEvent.class, e -> {
             Sector sector = state.rules.sector;
@@ -91,6 +91,8 @@ public class FOSOSTMod extends Mod {
     }
 
     void reload() {
+        FOSMusic.load();
+
         uxerdAmbient = Seq.with(dive);
         lumoniAmbient = Seq.with(abandoned, slowdown);
         lumoniSurvival = Seq.with(local, source);
@@ -99,10 +101,5 @@ public class FOSOSTMod extends Mod {
         vAmbient = control.ambientMusic;
         vDark = control.darkMusic;
         vBoss = control.bossMusic;
-    }
-
-    @Override
-    public void loadContent() {
-        FOSMusic.load();
     }
 }
