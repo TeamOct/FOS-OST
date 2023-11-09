@@ -32,7 +32,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run:
-        gh release create -m "FOS OST" "${{ steps.tag_make.outputs.tag }}"
+        gh release create -t "FOS OST" "${{ steps.tag_make.outputs.tag }}"
     - name: Add jar into release
       uses: softprops/action-gh-release@v1
       if: github.ref == 'refs/heads/master'
