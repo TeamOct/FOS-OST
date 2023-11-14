@@ -1,102 +1,66 @@
 package fosost;
 
-import arc.*;
+import arc.Events;
 import arc.audio.Music;
 import arc.struct.Seq;
-import arc.util.*;
+import arc.util.Log;
 import fosost.content.FOSMusic;
-import mindustry.*;
+import mindustry.Vars;
 import mindustry.audio.SoundControl;
-import mindustry.content.*;
 import mindustry.game.EventType.*;
-import mindustry.game.SpawnGroup;
 import mindustry.mod.*;
-import mindustry.type.*;
 
+import static fosost.MusicEntries.*;
 import static fosost.content.FOSMusic.*;
 import static mindustry.Vars.*;
 
 public class FOSOSTMod extends Mod {
-    private Seq<Music> uxerdAmbient = new Seq<>();
-    private Seq<Music> lumoniAmbient = new Seq<>(), lumoniSurvival = new Seq<>();
-    private Seq<Music> lumoniBosses = new Seq<>();
-
     public Seq<Music> vAmbient, vDark, vBoss;
 
-    private Planet curPlanet;
     private SoundControl control = Vars.control.sound;
 
-    //mod planets
-    private Planet lumoni, uxerd;
-
-    //mod bosses
-    private UnitType citadel, legion;
-
     public FOSOSTMod() {
-        Events.on(ContentInitEvent.class, e -> {
-            lumoni = content.planet("fos-lumoni");
-            uxerd = content.planet("fos-uxerd");
-
-            citadel = content.unit("fos-citadel");
-            legion = content.unit("fos-legion");
-        });
         Mods.LoadedMod fos = mods.locateMod("fos");
         if (fos == null) {
             Log.err("[FOS-OST] Base mod disabled or not found. Skipping.");
             return;
         }
 
-        Events.on(MusicRegisterEvent.class, e -> reload());
-        //change the music to modded OST
-        Events.on(WorldLoadEvent.class, e -> {
-            Sector sector = state.rules.sector;
-            if (sector != null) curPlanet = sector.planet;
-            else return;
+        Events.on(MusicRegisterEvent.class, e -> {
+            reload();
 
-            if (curPlanet == uxerd) {
-                control.ambientMusic = control.darkMusic = uxerdAmbient;
-            } else if (curPlanet == lumoni) {
-                control.ambientMusic = control.darkMusic = lumoniAmbient;
-                if (!state.rules.attackMode) {
-                    control.ambientMusic.addAll(lumoniSurvival);
-                    control.darkMusic.addAll(lumoniSurvival);
-                }
-            }
+            new AmbientMusicEntry(abandoned, "lumoni", AmbientMusicEntry.MusicType.ambient, false);
+            new AmbientMusicEntry(slowdown, "lumoni", AmbientMusicEntry.MusicType.ambient, false);
+            new AmbientMusicEntry(ultraSaw, "lumoni", AmbientMusicEntry.MusicType.dark, false);
+            new AmbientMusicEntry(local, "lumoni", AmbientMusicEntry.MusicType.ambient, true);
+            new AmbientMusicEntry(source, "lumoni", AmbientMusicEntry.MusicType.ambient, true);
+
+            new AmbientMusicEntry(dive, "uxerd", AmbientMusicEntry.MusicType.ambient, false);
+
+            new BossMusicEntry(livingSteam, "citadel");
+            new BossMusicEntry(uncountable, "legion");
+            //TODO: unstable core
+
+            applyAll();
         });
-        Events.on(WaveEvent.class, e -> {
-            SpawnGroup boss = state.rules.spawns.find(group -> group.getSpawned(state.wave - 2) > 0 && group.effect == StatusEffects.boss);
-            if (boss == null) return;
 
-            if (curPlanet != null && curPlanet == lumoni) {
-                control.bossMusic = lumoniBosses;
-                return;
-            }
-
-            if (boss.type == citadel) {
-                control.bossMusic = Seq.with(livingSteam);
-            } else if (boss.type == legion) {
-                control.bossMusic = Seq.with(uncountable);
-            } else {
+        //clear/reset music lists on map load
+        Events.on(WorldLoadBeginEvent.class, e -> {
+            Log.info("music reset?");
+            if (state.rules.planet != content.planet("fos-lumoni") && state.rules.planet != content.planet("fos-uxerd")) {
+                control.ambientMusic = vAmbient;
+                control.darkMusic = vDark;
                 control.bossMusic = vBoss;
+            } else {
+                control.ambientMusic.clear();
+                control.darkMusic.clear();
+                control.bossMusic.clear();
             }
-        });
-        //this should hopefully reset the music back to vanilla
-        Events.on(StateChangeEvent.class, e -> {
-            if (curPlanet == uxerd || curPlanet == lumoni) return;
-
-            control.ambientMusic = vAmbient;
-            control.darkMusic = vDark;
-            control.bossMusic = vBoss;
         });
     }
 
     void reload() {
         FOSMusic.load();
-
-        uxerdAmbient = Seq.with(dive);
-        lumoniAmbient = Seq.with(abandoned, slowdown);
-        lumoniSurvival = Seq.with(local, source);
-        lumoniBosses = Seq.with(scavenger);
 
         vAmbient = control.ambientMusic;
         vDark = control.darkMusic;
