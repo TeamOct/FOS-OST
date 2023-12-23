@@ -53,7 +53,6 @@ public class FOSOSTMod extends Mod {
 
         //clear/reset music lists on map load
         Events.on(WorldLoadBeginEvent.class, e -> {
-            Log.info("music reset?");
             if (state.rules.planet != content.planet("fos-lumoni") && state.rules.planet != content.planet("fos-uxerd")) {
                 control.ambientMusic = vAmbient;
                 control.darkMusic = vDark;
