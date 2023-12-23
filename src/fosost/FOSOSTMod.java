@@ -29,11 +29,18 @@ public class FOSOSTMod extends Mod {
         Events.on(MusicRegisterEvent.class, e -> {
             reload();
 
+            //TODO: this code looks kinda repetitive
+
             new AmbientMusicEntry(abandoned, "lumoni", AmbientMusicEntry.MusicType.ambient, false);
             new AmbientMusicEntry(slowdown, "lumoni", AmbientMusicEntry.MusicType.ambient, false);
-            new AmbientMusicEntry(ultraSaw, "lumoni", AmbientMusicEntry.MusicType.dark, false);
             new AmbientMusicEntry(local, "lumoni", AmbientMusicEntry.MusicType.ambient, true);
             new AmbientMusicEntry(source, "lumoni", AmbientMusicEntry.MusicType.ambient, true);
+            new AmbientMusicEntry(darkNest, "lumoni", AmbientMusicEntry.MusicType.ambient, true);
+            new AmbientMusicEntry(alive, "lumoni", AmbientMusicEntry.MusicType.ambient, true);
+
+            new AmbientMusicEntry(ultraSaw, "lumoni", AmbientMusicEntry.MusicType.dark, false);
+            new AmbientMusicEntry(rustyBlood, "lumoni", AmbientMusicEntry.MusicType.dark, false);
+            new AmbientMusicEntry(infected, "lumoni", AmbientMusicEntry.MusicType.dark, false);
 
             new AmbientMusicEntry(dive, "uxerd", AmbientMusicEntry.MusicType.ambient, false);
 
