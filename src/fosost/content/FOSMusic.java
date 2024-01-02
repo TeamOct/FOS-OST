@@ -8,26 +8,26 @@ public class FOSMusic {
     /* Lumoni ambient */ abandoned, slowdown, local, source, darkNest, alive,
     /* Lumoni dark */ ultraSaw, rustyBlood, infected,
     /* Uxerd */ dive,
-    /* bosses */ livingSteam, uncountable, scavenger, unstableCore;
+    /* bosses */ livingSteam, warlord, scavenger, unstableCore;
 
     public static void load() {
-        abandoned = loadMusic("abadoned_");
-        slowdown = loadMusic("SlowDown");
-        local = loadMusic("local");
-        source = loadMusic("source");
-        darkNest = loadMusic("Dark_nest");
-        alive = loadMusic("alive_");
+        abandoned = loadMusic("ambient/abadoned_");
+        slowdown = loadMusic("ambient/SlowDown");
+        local = loadMusic("ambient/local");
+        source = loadMusic("ambient/source");
+        darkNest = loadMusic("ambient/Dark_nest");
+        alive = loadMusic("ambient/alive_");
 
-        ultraSaw = loadMusic("ultraSaw");
-        rustyBlood = loadMusic("Rusty_blood");
-        infected = loadMusic("Infected");
+        ultraSaw = loadMusic("dark/ultraSaw");
+        rustyBlood = loadMusic("dark/Rusty_blood");
+        infected = loadMusic("dark/Infected");
 
-        dive = loadMusic("dive");
+        dive = loadMusic("ambient/dive");
 
-        livingSteam = loadMusic("LivingSteam");
-        uncountable = loadMusic("Uncountable");
-        scavenger = loadMusic("Scavenger");
-        unstableCore = loadMusic("Unstable_core");
+        livingSteam = loadMusic("boss/LivingSteam");
+        warlord = loadMusic("boss/Warlord");
+        scavenger = loadMusic("boss/Scavenger");
+        unstableCore = loadMusic("boss/Unstable_core");
     }
 
     static Music loadMusic(String name) {

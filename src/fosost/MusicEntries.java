@@ -27,14 +27,14 @@ public class MusicEntries {
 
     public static class AmbientMusicEntry extends MusicEntry {
         private Planet planet;
-        private MusicType type;
-        private boolean isSurvival;
+        private boolean dark;
+        private boolean survival;
 
-        public AmbientMusicEntry(Music music, String planet, MusicType type, boolean isSurvival) {
+        public AmbientMusicEntry(Music music, String planet, boolean dark, boolean survival) {
             this.music = music;
             this.planet = content.planet("fos-" + planet);
-            this.type = type;
-            this.isSurvival = isSurvival;
+            this.dark = dark;
+            this.survival = survival;
 
             all.add(this);
         }
@@ -43,17 +43,14 @@ public class MusicEntries {
         public void apply() {
             Events.on(WorldLoadEvent.class, e -> {
                 if (state.rules.planet != planet) return;
-                if (isSurvival && state.rules.mode() != Gamemode.survival) return;
+                if (survival && state.rules.mode() != Gamemode.survival) return;
 
-                switch(type) {
-                    case ambient -> control.sound.ambientMusic.add(music);
-                    case dark -> control.sound.darkMusic.add(music);
+                if (dark) {
+                    control.sound.darkMusic.add(music);
+                } else {
+                    control.sound.ambientMusic.add(music);
                 }
             });
-        }
-
-        public enum MusicType {
-            ambient, dark
         }
     }
 
