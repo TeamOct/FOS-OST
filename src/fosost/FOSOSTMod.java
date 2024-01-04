@@ -45,7 +45,7 @@ public class FOSOSTMod extends Mod {
             new AmbientMusicEntry(dive, "uxerd", false, false);
 
             new BossMusicEntry(livingSteam, "citadel");
-            new BossMusicEntry(warlord, "legion");
+            new BossMusicEntry(tcfn, "legion");
             //TODO: unstable core
 
             applyAll();

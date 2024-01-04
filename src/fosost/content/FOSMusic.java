@@ -8,7 +8,7 @@ public class FOSMusic {
     /* Lumoni ambient */ abandoned, slowdown, local, source, darkNest, alive,
     /* Lumoni dark */ ultraSaw, rustyBlood, infected,
     /* Uxerd */ dive,
-    /* bosses */ livingSteam, warlord, scavenger, unstableCore;
+    /* bosses */ livingSteam, tcfn, scavenger, unstableCore;
 
     public static void load() {
         abandoned = loadMusic("ambient/abadoned_");
@@ -25,7 +25,7 @@ public class FOSMusic {
         dive = loadMusic("ambient/dive");
 
         livingSteam = loadMusic("boss/LivingSteam");
-        warlord = loadMusic("boss/Warlord");
+        tcfn = loadMusic("boss/they_come_from_nowhere");
         scavenger = loadMusic("boss/Scavenger");
         unstableCore = loadMusic("boss/Unstable_core");
     }
