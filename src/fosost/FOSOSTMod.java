@@ -33,14 +33,14 @@ public class FOSOSTMod extends Mod {
 
             new AmbientMusicEntry(abandoned, "lumoni", false, false);
             new AmbientMusicEntry(slowdown, "lumoni", false, false);
-            new AmbientMusicEntry(local, "lumoni", false, true);
-            new AmbientMusicEntry(source, "lumoni", false, true);
+            new AmbientMusicEntry(local, "lumoni", false, false);
+            new AmbientMusicEntry(source, "lumoni", false, false);
             new AmbientMusicEntry(darkNest, "lumoni", false, true);
             new AmbientMusicEntry(alive, "lumoni", false, true);
 
             new AmbientMusicEntry(ultraSaw, "lumoni", true, false);
-            new AmbientMusicEntry(rustyBlood, "lumoni", true, false);
-            new AmbientMusicEntry(infected, "lumoni", true, false);
+            new AmbientMusicEntry(rustyBlood, "lumoni", true, true);
+            new AmbientMusicEntry(infected, "lumoni", true, true);
             new AmbientMusicEntry(reflectionOverdrive, "lumoni", true, false);
 
             new AmbientMusicEntry(dive, "uxerd", false, false);
@@ -53,12 +53,12 @@ public class FOSOSTMod extends Mod {
         });
 
         //clear/reset music lists on map load
-        Events.on(WorldLoadBeginEvent.class, e -> {
-            if (state.rules.planet != content.planet("fos-lumoni") && state.rules.planet != content.planet("fos-uxerd")) {
+        Events.on(WorldLoadEvent.class, e -> {
+            if (state.rules.planet.isVanilla()) {
                 control.ambientMusic = vAmbient;
                 control.darkMusic = vDark;
                 control.bossMusic = vBoss;
-            } else {
+            } else if (state.rules.planet.minfo.mod.name.equals("fos")) {
                 control.ambientMusic.clear();
                 control.darkMusic.clear();
                 control.bossMusic.clear();
@@ -69,8 +69,8 @@ public class FOSOSTMod extends Mod {
     void reload() {
         FOSMusic.load();
 
-        vAmbient = control.ambientMusic;
-        vDark = control.darkMusic;
-        vBoss = control.bossMusic;
+        vAmbient = control.ambientMusic.copy();
+        vDark = control.darkMusic.copy();
+        vBoss = control.bossMusic.copy();
     }
 }

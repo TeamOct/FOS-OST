@@ -43,7 +43,7 @@ public class MusicEntries {
         public void apply() {
             Events.on(WorldLoadEvent.class, e -> {
                 if (state.rules.planet != planet) return;
-                if (survival && state.rules.mode() != Gamemode.survival) return;
+                if (survival && (state.rules.mode() != Gamemode.survival || state.rules.waveTeam != Team.get(70))) return;
 
                 if (dark) {
                     control.sound.darkMusic.add(music);
