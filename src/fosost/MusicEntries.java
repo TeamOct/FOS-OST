@@ -3,7 +3,7 @@ package fosost;
 import arc.Events;
 import arc.audio.Music;
 import arc.struct.Seq;
-import mindustry.content.StatusEffects;
+import arc.util.*;
 import mindustry.game.*;
 import mindustry.type.*;
 
@@ -66,12 +66,12 @@ public class MusicEntries {
 
         @Override
         public void apply() {
-            Events.on(WaveEvent.class, e -> {
-                SpawnGroup bossSpawn = state.rules.spawns.find(group -> group.getSpawned(state.wave - 2) > 0 && group.effect == StatusEffects.boss);
-                if (bossSpawn == null) return;
-
-                if (bossSpawn.type == boss) {
-                    control.sound.bossMusic = Seq.with(music);
+            Events.on(UnitSpawnEvent.class, e -> {
+                if (e.unit != null && e.unit.type == boss && e.unit.team == state.rules.waveTeam) {
+                    Time.run(179f, () -> {
+                        // this is my first time ever trying to DIRECTLY play music.
+                        Reflect.invoke(control.sound, "playOnce", new Object[]{music}, Music.class);
+                    });
                 }
             });
         }
