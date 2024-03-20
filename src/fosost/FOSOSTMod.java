@@ -42,6 +42,7 @@ public class FOSOSTMod extends Mod {
             new AmbientMusicEntry(rustyBlood, "lumoni", true, true);
             new AmbientMusicEntry(infected, "lumoni", true, true);
             new AmbientMusicEntry(reflectionOverdrive, "lumoni", true, false);
+            new AmbientMusicEntry(deadlyWeight, "lumoni", true, false);
 
             new AmbientMusicEntry(dive, "uxerd", false, false);
 

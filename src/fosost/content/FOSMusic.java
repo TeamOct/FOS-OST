@@ -6,7 +6,7 @@ import mindustry.Vars;
 public class FOSMusic {
     public static Music
     /* Lumoni ambient */ abandoned, slowdown, local, source, darkNest, alive,
-    /* Lumoni dark */ ultraSaw, rustyBlood, infected, reflectionOverdrive,
+    /* Lumoni dark */ ultraSaw, rustyBlood, infected, reflectionOverdrive, deadlyWeight,
     /* Uxerd */ dive,
     /* bosses */ livingSteam, tcfn, scavenger, unstableCore;
 
@@ -22,6 +22,7 @@ public class FOSMusic {
         rustyBlood = loadMusic("dark/Rusty_blood");
         infected = loadMusic("dark/Infected");
         reflectionOverdrive = loadMusic("dark/Reflection_overdrive");
+        deadlyWeight = loadMusic("dark/deadly_weight");
 
         dive = loadMusic("ambient/dive");
 
