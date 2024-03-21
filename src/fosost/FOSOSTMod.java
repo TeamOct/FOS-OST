@@ -55,7 +55,7 @@ public class FOSOSTMod extends Mod {
 
         //clear/reset music lists on map load
         Events.on(WorldLoadEvent.class, e -> {
-            if (state.rules.planet.isVanilla()) {
+            if (state.rules.planet == null || state.rules.planet.isVanilla()) {
                 control.ambientMusic = vAmbient;
                 control.darkMusic = vDark;
                 control.bossMusic = vBoss;
