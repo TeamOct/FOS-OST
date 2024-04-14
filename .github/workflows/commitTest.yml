@@ -41,5 +41,5 @@ jobs:
       uses: softprops/action-gh-release@v1
       if: github.ref == 'refs/heads/master'
       with:
-        tag_name: "v" + ${{ steps.tag_make.outputs.tag }}
+        tag_name: ${{ steps.tag_make.outputs.tag }}
         files: build/libs/${{ github.event.repository.name }}.jar
