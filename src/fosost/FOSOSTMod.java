@@ -26,6 +26,11 @@ public class FOSOSTMod extends Mod {
             return;
         }
 
+        Events.on(ClientLoadEvent.class, e -> {
+            new AutoUpdater();
+        });
+
+
         Events.on(MusicRegisterEvent.class, e -> {
             reload();
 

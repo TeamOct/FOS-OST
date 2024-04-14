@@ -27,19 +27,19 @@ jobs:
       run: |
         echo "::set-output name=tag::$(jq '.version' mod.json -r)"
       id: tag_make
-#    - name: Create blank release
-#      if: github.ref == 'refs/heads/master'
-#      env:
-#        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#      run:
-#        gh release create -t "FOS OST" "${{ steps.tag_make.outputs.tag }}"
-    - name: Check mod version
+    - name: Create blank release
       if: github.ref == 'refs/heads/master'
-      run: |
-        echo "${{ steps.tag_make.outputs.tag }}"
-#    - name: Add jar into release
-#      uses: softprops/action-gh-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run:
+        gh release create -t "FOS OST" "${{ steps.tag_make.outputs.tag }}"
+#    - name: Check mod version
 #      if: github.ref == 'refs/heads/master'
-#      with:
-#        tag_name: ${{ steps.tag_make.outputs.tag }}
-#        files: build/libs/${{ github.event.repository.name }}.jar
+#      run: |
+#        echo "${{ steps.tag_make.outputs.tag }}"
+    - name: Add jar into release
+      uses: softprops/action-gh-release@v1
+      if: github.ref == 'refs/heads/master'
+      with:
+        tag_name: "v" + ${{ steps.tag_make.outputs.tag }}
+        files: build/libs/${{ github.event.repository.name }}.jar
