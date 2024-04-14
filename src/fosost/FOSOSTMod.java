@@ -1,6 +1,6 @@
 package fosost;
 
-import arc.Events;
+import arc.*;
 import arc.audio.Music;
 import arc.struct.Seq;
 import arc.util.Log;
@@ -27,9 +27,11 @@ public class FOSOSTMod extends Mod {
         }
 
         Events.on(ClientLoadEvent.class, e -> {
-            new AutoUpdater();
-        });
+            if (Core.settings.getBool("fosost-autoupdate", true))
+                new AutoUpdater();
 
+            constructSettings();
+        });
 
         Events.on(MusicRegisterEvent.class, e -> {
             reload();
@@ -78,5 +80,11 @@ public class FOSOSTMod extends Mod {
         vAmbient = control.ambientMusic.copy();
         vDark = control.darkMusic.copy();
         vBoss = control.bossMusic.copy();
+    }
+
+    void constructSettings() {
+        ui.settings.addCategory("@setting.fosost-title", t -> {
+            t.checkPref("fosost-autoupdate", true);
+        });
     }
 }
