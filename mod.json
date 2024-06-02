@@ -5,7 +5,7 @@
     "main": "fosost.FOSOSTMod",
     "repo": "TeamOct/FOS-OST",
     "description": "Original soundtrack (made by Saigo no-nozomi) for a Mindustry mod Fictional Octo System.",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "minGameVersion": 140.3,
     "java": true,
     "hidden": true,

@@ -65,12 +65,13 @@ public class FOSOSTMod extends Mod {
             if (state.rules.planet == null || state.rules.planet.isVanilla()) {
                 control.ambientMusic = vAmbient;
                 control.darkMusic = vDark;
-                control.bossMusic = vBoss;
             } else if (state.rules.planet.minfo.mod.name.equals("fos")) {
                 control.ambientMusic.clear();
                 control.darkMusic.clear();
-                control.bossMusic.clear();
             }
+
+            // fallback to vanilla boss music anyway if no modded music is present
+            control.bossMusic = vBoss;
         });
     }
 
